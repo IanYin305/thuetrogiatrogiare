@@ -3,38 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cho Thuê Phòng Trọ TP.HCM</title>
-    <!-- Load Leaflet CSS và JS từ CDN (miễn phí) -->
+    <title>Cho Thuê Phòng Trọ TP.HCM - Giá Rẻ</title>
+    
+    <!-- Load Leaflet CSS và JS từ CDN miễn phí -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
+    <!-- Plugin 3D Buildings (tòa nhà nổi 3D) -->
+    <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
+    
     <style>
-        #map { height: 600px; width: 100%; margin: 20px 0; }
-        body { font-family: Arial, sans-serif; margin: 20px; }
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f8f8f8; }
+        h1, h2 { color: #333; }
+        #map { height: 600px; width: 100%; border: 2px solid #ccc; border-radius: 10px; margin: 30px 0; }
+        .room-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .room-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
     <h1>Cho Thuê Phòng Trọ Tại TP. Hồ Chí Minh</h1>
-    <p>Các phòng trọ giá rẻ ở Quận 1, Quận 7, Bình Thạnh...</p>
-
-    <h2>Bản Đồ Vị Trí Phòng Trọ</h2>
+    <p>Phòng trọ giá rẻ, đầy đủ tiện nghi tại Quận 1, Quận 7, Bình Thạnh, Thủ Đức... Liên hệ ngay!</p>
+    
+    <h2>Bản Đồ Vị Trí Các Phòng Trọ (Zoom gần để xem tòa nhà 3D)</h2>
     <div id="map"></div>
+    
+    <h2>Danh Sách Phòng Trọ</h2>
+    <div class="room-list">
+        <div class="room-card">
+            <h3>Phòng Quận 1 - Trung Tâm</h3>
+            <p>Giá: 5 triệu/tháng<br>Diện tích: 25m²<br>Tiện ích: Wifi, máy lạnh, bếp</p>
+        </div>
+        <!-- Thêm thẻ room-card khác cho các phòng khác -->
+    </div>
 
     <script>
         // Khởi tạo bản đồ trung tâm TP.HCM
         var map = L.map('map').setView([10.7769, 106.7009], 13);
 
-        // Thêm layer bản đồ OpenStreetMap (miễn phí)
+        // Layer bản đồ OpenStreetMap miễn phí
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+            attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        // Thêm markers cho phòng trọ mẫu
-        L.marker([10.7765, 106.7010]).addTo(map).bindPopup("Phòng Quận 1 - 5 triệu/tháng");
-        L.marker([10.7626, 106.6822]).addTo(map).bindPopup("Phòng Quận 7 - Phú Mỹ Hưng - 7 triệu");
-        L.marker([10.7965, 106.6658]).addTo(map).bindPopup("Phòng Bình Thạnh - 4 triệu");
+        // Bật hiệu ứng tòa nhà 3D (khi zoom gần sẽ thấy nổi lên)
+        new OSMBuildings(map).load();
 
-        // Thêm nhiều marker khác nếu cần
+        // Thêm markers vị trí phòng trọ (click để xem thông tin)
+        L.marker([10.7765, 106.7010]).addTo(map).bindPopup("<b>Phòng Quận 1</b><br>Giá 5 triệu/tháng<br>Liên hệ: 090x xxx xxx");
+        L.marker([10.7626, 106.6822]).addTo(map).bindPopup("<b>Phòng Quận 7 - Phú Mỹ Hưng</b><br>Giá 7 triệu/tháng");
+        L.marker([10.7965, 106.6658]).addTo(map).bindPopup("<b>Phòng Bình Thạnh</b><br>Giá 4 triệu/tháng");
+        
+        // Thêm marker mới: Copy dòng trên và thay tọa độ + thông tin
     </script>
 </body>
 </html>
