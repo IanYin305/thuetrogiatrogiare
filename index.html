@@ -5,55 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cho Thuê Phòng Trọ TP.HCM - Giá Rẻ</title>
     
-    <!-- Load Leaflet CSS và JS từ CDN miễn phí -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unplugin.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     
-    <!-- Plugin 3D Buildings (tòa nhà nổi 3D) -->
+    <!-- Plugin tìm kiếm địa chỉ trên bản đồ (Leaflet Control Geocoder - dùng Nominatim OSM miễn phí) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    
+    <!-- Plugin 3D Buildings -->
     <script src="https://cdn.osmbuildings.org/classic/0.2.2b/OSMBuildings-Leaflet.js"></script>
     
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; background: #f8f8f8; }
         h1, h2 { color: #333; }
         #map { height: 600px; width: 100%; border: 2px solid #ccc; border-radius: 10px; margin: 30px 0; }
+        .search-bar { margin: 20px 0; padding: 10px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        input[type="text"] { width: 70%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
         .room-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .room-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .room-card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: none; } /* Ẩn mặc định để JS lọc */
+        .room-card.show { display: block; } /* Hiển thị khi khớp */
     </style>
 </head>
 <body>
     <h1>Cho Thuê Phòng Trọ Tại TP. Hồ Chí Minh</h1>
-    <p>Phòng trọ giá rẻ, đầy đủ tiện nghi tại Quận 1, Quận 7, Bình Thạnh, Thủ Đức... Liên hệ ngay!</p>
+    <p>Phòng trọ giá rẻ, đầy đủ tiện nghi. Tìm kiếm nhanh theo quận hoặc địa chỉ!</p>
     
-    <h2>Bản Đồ Vị Trí Các Phòng Trọ (Zoom gần để xem tòa nhà 3D)</h2>
+    <!-- Tìm kiếm danh sách phòng -->
+    <div class="search-bar">
+        <input type="text" id="roomSearch" placeholder="Tìm phòng theo quận, giá, tiện ích (ví dụ: Quận 1, dưới 5 triệu, máy lạnh)...">
+    </div>
+    
+    <h2>Bản Đồ Vị Trí Các Phòng Trọ (Có ô tìm kiếm địa chỉ)</h2>
     <div id="map"></div>
     
     <h2>Danh Sách Phòng Trọ</h2>
-    <div class="room-list">
-        <div class="room-card">
-            <h3>Phòng Quận 1 - Trung Tâm</h3>
-            <p>Giá: 5 triệu/tháng<br>Diện tích: 25m²<br>Tiện ích: Wifi, máy lạnh, bếp</p>
+    <div class="room-list" id="roomList">
+        <!-- Các phòng trọ - thêm data attributes để dễ lọc -->
+        <div class="room-card" data-district="Quận 1" data-price="5000000" data-features="wifi máy lạnh bếp">
+            <h3>Phòng Cao Cấp Quận 1 - Trung Tâm</h3>
+            <img src="https://via.placeholder.com/300x200?text=Phong+Quan+1" alt="Phòng Quận 1" style="width:100%; border-radius:8px;">
+            <p><strong>Giá:</strong> 5 triệu/tháng<br><strong>Diện tích:</strong> 25m²<br><strong>Tiện ích:</strong> Wifi, máy lạnh, bếp riêng<br><strong>Địa chỉ:</strong> Nguyễn Huệ, Quận 1</p>
         </div>
-        <!-- Thêm thẻ room-card khác cho các phòng khác -->
+        
+        <div class="room-card" data-district="Quận 7" data-price="7000000" data-features="wifi hồ bơi gym">
+            <h3>Phòng Phú Mỹ Hưng Quận 7</h3>
+            <img src="https://via.placeholder.com/300x200?text=Phong+Quan+7" alt="Phòng Quận 7" style="width:100%; border-radius:8px;">
+            <p><strong>Giá:</strong> 7 triệu/tháng<br><strong>Tiện ích:</strong> Wifi, hồ bơi, gym, an ninh 24/7</p>
+        </div>
+        
+        <div class="room-card" data-district="Bình Thạnh" data-price="4000000" data-features="wifi máy lạnh">
+            <h3>Phòng Giá Rẻ Bình Thạnh</h3>
+            <img src="https://via.placeholder.com/300x200?text=Phong+Binh+Thanh" alt="Phòng Bình Thạnh" style="width:100%; border-radius:8px;">
+            <p><strong>Giá:</strong> 4 triệu/tháng<br><strong>Tiện ích:</strong> Wifi, máy lạnh, gần chợ</p>
+        </div>
+        
+        <!-- Thêm nhiều phòng khác bằng cách copy div trên và thay thông tin -->
     </div>
 
     <script>
-        // Khởi tạo bản đồ trung tâm TP.HCM
+        // Khởi tạo bản đồ
         var map = L.map('map').setView([10.7769, 106.7009], 13);
-
-        // Layer bản đồ OpenStreetMap miễn phí
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
-
-        // Bật hiệu ứng tòa nhà 3D (khi zoom gần sẽ thấy nổi lên)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         new OSMBuildings(map).load();
 
-        // Thêm markers vị trí phòng trọ (click để xem thông tin)
-        L.marker([10.7765, 106.7010]).addTo(map).bindPopup("<b>Phòng Quận 1</b><br>Giá 5 triệu/tháng<br>Liên hệ: 090x xxx xxx");
-        L.marker([10.7626, 106.6822]).addTo(map).bindPopup("<b>Phòng Quận 7 - Phú Mỹ Hưng</b><br>Giá 7 triệu/tháng");
-        L.marker([10.7965, 106.6658]).addTo(map).bindPopup("<b>Phòng Bình Thạnh</b><br>Giá 4 triệu/tháng");
+        // Thêm control tìm kiếm địa chỉ (gõ Quận 1, Phạm Ngũ Lão... là zoom đến)
+        L.Control.geocoder().addTo(map);
+
+        // Markers phòng trọ
+        var markers = [
+            L.marker([10.7765, 106.7010]).bindPopup("<b>Phòng Quận 1</b><br>5 triệu/tháng"),
+            L.marker([10.7626, 106.6822]).bindPopup("<b>Phòng Quận 7</b><br>7 triệu/tháng"),
+            L.marker([10.7965, 106.6658]).bindPopup("<b>Phòng Bình Thạnh</b><br>4 triệu/tháng")
+        ];
+        markers.forEach(m => m.addTo(map));
+
+        // Tìm kiếm danh sách phòng
+        const searchInput = document.getElementById('roomSearch');
+        const roomCards = document.querySelectorAll('.room-card');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase().trim();
+            
+            roomCards.forEach(card => {
+                const district = card.getAttribute('data-district').toLowerCase();
+                const price = parseInt(card.getAttribute('data-price'));
+                const features = card.getAttribute('data-features').toLowerCase();
+                
+                let match = false;
+                if (district.includes(query) || features.includes(query)) {
+                    match = true;
+                }
+                // Tìm theo giá: ví dụ "dưới 5 triệu" hoặc "5 triệu"
+                if (query.includes('dưới') && query.includes('triệu')) {
+                    const maxPrice = parseInt(query.match(/\d+/)?.[0] || 0) * 1000000;
+                    if (price <= maxPrice) match = true;
+                } else if (/\d+ triệu/.test(query)) {
+                    const exactPrice = parseInt(query.match(/\d+/)?.[0] || 0) * 1000000;
+                    if (price === exactPrice) match = true;
+                }
+                
+                card.classList.toggle('show', match);
+            });
+        });
         
-        // Thêm marker mới: Copy dòng trên và thay tọa độ + thông tin
+        // Hiển thị tất cả ban đầu
+        roomCards.forEach(card => card.classList.add('show'));
     </script>
 </body>
 </html>
