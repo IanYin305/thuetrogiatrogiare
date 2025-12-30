@@ -2,41 +2,39 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cho Thuê Phòng Trọ TP.HCM</title>
+    <!-- Load Leaflet CSS và JS từ CDN (miễn phí) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <style>
-        #map {
-            height: 500px; /* Chiều cao bản đồ */
-            width: 100%;
-        }
+        #map { height: 600px; width: 100%; margin: 20px 0; }
+        body { font-family: Arial, sans-serif; margin: 20px; }
     </style>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" defer></script>
-    <script>
-        function initMap() {
-            const hcmCenter = { lat: 10.7769, lng: 106.7009 }; // Tọa độ trung tâm TP.HCM
-            const map = new google.maps.Map(document.getElementById("map"), {
-                center: hcmCenter,
-                zoom: 14, // Zoom gần để thấy chi tiết
-                mapTypeId: "roadmap", // Hoặc "satellite" cho ảnh vệ tinh
-            });
-
-            // Bật chế độ 3D: Tilt (nghiêng) và heading (hướng)
-            map.setTilt(45); // Tilt 45 độ cho view 3D
-            map.setHeading(90); // Hướng xoay (thử 0-360)
-
-            // Thêm marker cho phòng trọ mẫu (ví dụ quận 1)
-            new google.maps.Marker({
-                position: { lat: 10.7765, lng: 106.7010 }, // Tọa độ phòng
-                map: map,
-                title: "Phòng Trọ Quận 1 - Giá 5tr/tháng",
-            });
-            
-            // Thêm marker khác nếu cần (lặp cho danh sách phòng)
-        }
-    </script>
 </head>
 <body>
-    <h1>Bản Đồ Phòng Trọ TP.HCM</h1>
-    <div id="map"></div> <!-- Bản đồ ở đây -->
-    <!-- Phần còn lại của website -->
+    <h1>Cho Thuê Phòng Trọ Tại TP. Hồ Chí Minh</h1>
+    <p>Các phòng trọ giá rẻ ở Quận 1, Quận 7, Bình Thạnh...</p>
+
+    <h2>Bản Đồ Vị Trí Phòng Trọ</h2>
+    <div id="map"></div>
+
+    <script>
+        // Khởi tạo bản đồ trung tâm TP.HCM
+        var map = L.map('map').setView([10.7769, 106.7009], 13);
+
+        // Thêm layer bản đồ OpenStreetMap (miễn phí)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Thêm markers cho phòng trọ mẫu
+        L.marker([10.7765, 106.7010]).addTo(map).bindPopup("Phòng Quận 1 - 5 triệu/tháng");
+        L.marker([10.7626, 106.6822]).addTo(map).bindPopup("Phòng Quận 7 - Phú Mỹ Hưng - 7 triệu");
+        L.marker([10.7965, 106.6658]).addTo(map).bindPopup("Phòng Bình Thạnh - 4 triệu");
+
+        // Thêm nhiều marker khác nếu cần
+    </script>
 </body>
 </html>
