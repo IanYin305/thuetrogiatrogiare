@@ -117,3 +117,74 @@ function surpriseMe() {
     
     alert("VietHome đã chọn cho bạn: " + luckyRoom.name + " ✨. Xem ngay nhé!");
 }
+// Global variable to store markers so we can interact with them later
+let currentMarkers = [];
+
+function displayRooms(data) {
+    const list = document.getElementById("room-list");
+    list.innerHTML = "";
+    markerGroup.clearLayers(); // Xóa các chấm cũ trên bản đồ
+    currentMarkers = []; // Reset danh sách markers
+
+    if (data.length === 0) {
+        list.innerHTML = `<p style="text-align:center; padding:20px; color:#717171;">Không tìm thấy phòng phù hợp. Hãy thử lại nhé!</p>`;
+        return;
+    }
+
+    data.forEach((room, index) => { // Thêm 'index' để tạo độ trễ
+        const priceTag = (room.price / 1000000).toFixed(1) + "tr";
+        
+        // 1. Tạo thẻ phòng (Danh sách bên trái)
+        // Dùng setTimeout để thêm class 'show' sau một độ trễ
+        setTimeout(() => {
+            const roomCardDiv = document.createElement('div');
+            roomCardDiv.className = 'room-card'; // ban đầu chưa có 'show'
+            roomCardDiv.setAttribute('data-lat', room.lat); // Lưu trữ lat, lng
+            roomCardDiv.setAttribute('data-lng', room.lng);
+            roomCardDiv.setAttribute('id', `room-${room.id}`); // ID duy nhất cho mỗi phòng
+
+            roomCardDiv.innerHTML = `
+                <div class="img-wrapper"><img src="${room.image}"></div>
+                <div>${room.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+                <h3 style="font-size: 16px; margin: 5px 0;">${room.name}</h3>
+                <div class="room-price">${room.price.toLocaleString()}đ / tháng</div>
+                <a href="https://zalo.me/0984877846" target="_blank" style="color:#0068FF; font-size:14px; text-decoration:none; font-weight:700;">Nhắn Zalo</a>
+            `;
+            list.appendChild(roomCardDiv);
+
+            // Thêm class 'show' để kích hoạt animation
+            setTimeout(() => {
+                roomCardDiv.classList.add('show');
+            }, 50); // Độ trễ nhỏ giữa các thẻ
+            
+            // Thêm sự kiện click vào thẻ để bản đồ bay đến
+            roomCardDiv.addEventListener('click', () => {
+                map.flyTo([room.lat, room.lng], 16, { animate: true, duration: 1.5 });
+                // Optional: Open the marker popup when clicking the card
+                // const markerToOpen = currentMarkers.find(m => m.options.id === room.id);
+                // if (markerToOpen) {
+                //     markerToOpen.openPopup();
+                // }
+            });
+
+        }, index * 100); // Mỗi thẻ xuất hiện cách nhau 0.1 giây
+
+        // 2. Tạo chấm hiển thị giá trên bản đồ
+        const icon = L.divIcon({
+            className: 'price-marker-icon',
+            html: `<div class="price-marker">${priceTag}</div>`
+        });
+
+        const marker = L.marker([room.lat, room.lng], {icon: icon, id: room.id}) // Lưu ID vào marker
+            .addTo(markerGroup)
+            .bindPopup(`
+                <div style="width:150px">
+                    <img src="${room.image}" style="width:100%; border-radius:8px">
+                    <h4 style="margin:5px 0">${room.name}</h4>
+                    <p style="color:red; font-weight:bold">${room.price.toLocaleString()}đ</p>
+                    <a href="#room-${room.id}" style="color:blue">Xem chi tiết</a>
+                </div>
+            `);
+        currentMarkers.push(marker); // Lưu marker vào mảng
+    });
+}
