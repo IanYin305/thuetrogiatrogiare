@@ -1,0 +1,19 @@
+body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; }
+header { background: #2c3e50; color: white; padding: 20px; text-align: center; }
+.container { max-width: 1000px; margin: 20px auto; padding: 20px; }
+
+/* Phần bộ lọc */
+.filter-section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; gap: 10px; justify-content: center; margin-bottom: 30px; }
+select, button { padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ddd; }
+button { background: #e67e22; color: white; border: none; cursor: pointer; }
+button:hover { background: #d35400; }
+
+/* Lưới hiển thị phòng */
+.room-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.room-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s; }
+.room-card:hover { transform: translateY(-5px); }
+.room-img { width: 100%; height: 200px; object-fit: cover; }
+.room-info { padding: 15px; }
+.room-price { color: #c0392b; font-weight: bold; font-size: 1.2em; }
+.room-district { color: #7f8c8d; margin-bottom: 10px; }
+.btn-map { display: block; text-align: center; background: #3498db; color: white; text-decoration: none; padding: 10px; margin-top: 10px; border-radius: 5px; }
