@@ -311,3 +311,38 @@ body {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 15px 30px rgba(255, 128, 171, 0.2);
 }
+/* Container cho nút Surprise */
+.surprise-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Nút bấm phong cách kẹo ngọt */
+.btn-surprise {
+    background-color: #FF80AB; /* Hồng pastel */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 128, 171, 0.4);
+    transition: all 0.3s ease;
+    animation: jelly 2s infinite; /* Hiệu ứng rung rinh */
+}
+
+.btn-surprise:hover {
+    background-color: #f06292;
+    transform: scale(1.1);
+}
+
+/* Hiệu ứng rung rinh kiểu thạch (Jelly) */
+@keyframes jelly {
+    0%, 100% { transform: scale(1, 1); }
+    25% { transform: scale(0.9, 1.1); }
+    50% { transform: scale(1.1, 0.9); }
+    75% { transform: scale(0.95, 1.05); }
+}
