@@ -346,3 +346,19 @@ body {
     50% { transform: scale(1.1, 0.9); }
     75% { transform: scale(0.95, 1.05); }
 }
+/* Hiệu ứng trượt lên và mờ dần khi xuất hiện */
+@keyframes slideUpFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Áp dụng hiệu ứng cho từng thẻ phòng */
+.room-card.show {
+    animation: slideUpFadeIn 0.5s ease-out forwards;
+}
