@@ -210,3 +210,64 @@ body { font-family: 'Nunito', sans-serif; margin: 0; overflow: hidden; }
     width: 18px;
     height: 18px;
 }
+
+/* Tăng chiều cao navbar để chứa 2 hàng */
+.navbar {
+    height: auto;
+    min-height: 100px;
+    padding: 10px 0;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.search-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Thanh tìm kiếm chính */
+.search-compact {
+    border: 1px solid #DDD;
+    padding: 5px 20px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Làm đẹp hàng Checkbox */
+.amenities-filter {
+    display: flex;
+    gap: 15px;
+}
+
+.amenities-filter label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #717171;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    white-space: nowrap; /* Tránh nhảy dòng chữ */
+}
+
+/* Nút Zalo Hotline góc phải */
+.nav-zalo {
+    color: #0068FF;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 14px;
+    border: 1px solid #0068FF;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+.nav-zalo:hover {
+    background: #0068FF;
+    color: white;
+}
