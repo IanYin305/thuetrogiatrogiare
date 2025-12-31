@@ -64,3 +64,33 @@ function filterRooms() {
 }
 
 displayRooms(rooms);
+function filterRooms() {
+    const d = document.getElementById("filter-district").value;
+    const p = document.getElementById("filter-price").value;
+    
+    // Lấy danh sách các tiện ích đang được tick
+    const selectedAmenities = Array.from(document.querySelectorAll('.amenity-check:checked'))
+                                   .map(cb => cb.value);
+
+    const filtered = rooms.filter(r => {
+        // Lọc theo quận
+        const matchD = d === "all" || r.district === d;
+        
+        // Lọc theo giá
+        let matchP = true;
+        if(p === "duoi3") matchP = r.price < 3000000;
+        if(p === "3den5") matchP = r.price >= 3000000 && r.price <= 5000000;
+
+        // Lọc theo tiện ích (Phòng phải có TẤT CẢ các tiện ích đã chọn)
+        const matchAmenities = selectedAmenities.every(amenity => r.tags.includes(amenity));
+
+        return matchD && matchP && matchAmenities;
+    });
+
+    displayRooms(filtered);
+}
+
+// Lắng nghe sự kiện click vào checkbox để lọc ngay lập tức
+document.querySelectorAll('.amenity-check').forEach(check => {
+    check.addEventListener('change', filterRooms);
+});
