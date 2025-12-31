@@ -94,3 +94,7 @@ function filterRooms() {
 document.querySelectorAll('.amenity-check').forEach(check => {
     check.addEventListener('change', filterRooms);
 });
+// Tự động lọc khi bấm vào bất kỳ checkbox nào
+document.querySelectorAll('.amenity-check').forEach(check => {
+    check.addEventListener('change', filterRooms);
+});
