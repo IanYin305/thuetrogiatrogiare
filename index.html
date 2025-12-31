@@ -3,38 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tìm Trọ Nhanh</title>
+    <title>Tìm Trọ Nhanh - Uy tín & Tiện lợi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>🏠 Website Tìm Trọ Miễn Phí</h1>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand-logo">🏠 VietHome Find</a>
+            <ul class="nav-links">
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#list-section" class="btn-highlight">Tìm phòng ngay</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="hero-content">
+            <h1>Tìm Không Gian Sống Lý Tưởng Của Bạn</h1>
+            <p>Hàng trăm phòng trọ, căn hộ dịch vụ được xác thực đang chờ bạn khám phá.</p>
+        </div>
     </header>
 
-    <div class="container">
-        <div class="filter-section">
-            <select id="filter-district">
-                <option value="all">-- Tất cả Quận --</option>
-                <option value="Quận 1">Quận 1</option>
-                <option value="Quận 3">Quận 3</option>
-                <option value="Quận 7">Quận 7</option>
-                <option value="Bình Thạnh">Bình Thạnh</option>
-            </select>
+    <div class="container" id="list-section">
+        <div class="filter-card">
+            <h2>🔍 Lọc theo nhu cầu</h2>
+            <div class="filter-inputs">
+                <div class="input-group">
+                    <label for="filter-district">Khu vực</label>
+                    <select id="filter-district">
+                        <option value="all">Tất cả Quận</option>
+                        <option value="Quận 1">Quận 1</option>
+                        <option value="Quận 3">Quận 3</option>
+                        <option value="Quận 7">Quận 7</option>
+                        <option value="Bình Thạnh">Bình Thạnh</option>
+                    </select>
+                </div>
 
-            <select id="filter-price">
-                <option value="all">-- Tất cả Mức giá --</option>
-                <option value="duoi3">Dưới 3 triệu</option>
-                <option value="3den5">Từ 3 - 5 triệu</option>
-                <option value="tren5">Trên 5 triệu</option>
-            </select>
-
-            <button onclick="filterRooms()">Lọc Tìm Kiếm</button>
+                <div class="input-group">
+                    <label for="filter-price">Mức giá</label>
+                    <select id="filter-price">
+                        <option value="all">Tất cả mức giá</option>
+                        <option value="duoi3">Dưới 3 triệu</option>
+                        <option value="3den5">Từ 3 - 5 triệu</option>
+                        <option value="tren5">Trên 5 triệu</option>
+                    </select>
+                </div>
+            </div>
+            <button onclick="filterRooms()" class="btn-search">Áp dụng bộ lọc</button>
         </div>
 
         <div id="room-list" class="room-grid">
             </div>
     </div>
+
+    <footer>
+        <p>© 2023 VietHome Find. Website hỗ trợ tìm kiếm phòng trọ miễn phí.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
