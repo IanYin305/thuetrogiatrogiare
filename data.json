@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "Phòng trọ giá rẻ Quận 1",
+    "district": "Quận 1",
+    "price": 3000000,
+    "image": "link-anh-1.jpg",
+    "map": "https://goo.gl/maps/..."
+  },
+  {
+    "id": 2,
+    "title": "Căn hộ dịch vụ Quận 7",
+    "district": "Quận 7",
+    "price": 5000000,
+    "image": "link-anh-2.jpg",
+    "map": "https://goo.gl/maps/..."
+  }
+]
