@@ -1,13 +1,41 @@
-<select id="filter-district">
-  <option value="all">Tất cả Quận</option>
-  <option value="Quận 1">Quận 1</option>
-  <option value="Quận 7">Quận 7</option>
-</select>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm Trọ Nhanh</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<select id="filter-price">
-  <option value="all">Mọi mức giá</option>
-  <option value="3000000">Dưới 3 triệu</option>
-</select>
+    <header>
+        <h1>🏠 Website Tìm Trọ Miễn Phí</h1>
+    </header>
 
-<div id="list-phong">
-  </div>
+    <div class="container">
+        <div class="filter-section">
+            <select id="filter-district">
+                <option value="all">-- Tất cả Quận --</option>
+                <option value="Quận 1">Quận 1</option>
+                <option value="Quận 3">Quận 3</option>
+                <option value="Quận 7">Quận 7</option>
+                <option value="Bình Thạnh">Bình Thạnh</option>
+            </select>
+
+            <select id="filter-price">
+                <option value="all">-- Tất cả Mức giá --</option>
+                <option value="duoi3">Dưới 3 triệu</option>
+                <option value="3den5">Từ 3 - 5 triệu</option>
+                <option value="tren5">Trên 5 triệu</option>
+            </select>
+
+            <button onclick="filterRooms()">Lọc Tìm Kiếm</button>
+        </div>
+
+        <div id="room-list" class="room-grid">
+            </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
