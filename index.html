@@ -10,15 +10,11 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="brand-logo">🏠 VietHome</a>
+    <div class="nav-container">
+        <a href="#" class="brand-logo">🏠 VietHome</a>
+        
+        <div class="search-wrapper">
             <div class="search-compact">
-                <div class="amenities-filter">
-    <label><input type="checkbox" class="amenity-check" value="Máy lạnh"> Máy lạnh</label>
-    <label><input type="checkbox" class="amenity-check" value="Nội thất"> Nội thất</label>
-    <label><input type="checkbox" class="amenity-check" value="Thú cưng"> Cho nuôi thú cưng</label>
-    <label><input type="checkbox" class="amenity-check" value="Máy giặt"> Máy giặt</label>
-</div>
                 <select id="filter-district" onchange="filterRooms()">
                     <option value="all">Khu vực</option>
                     <option value="Quận 1">Quận 1</option>
@@ -31,9 +27,18 @@
                     <option value="3den5">3tr - 5tr</option>
                 </select>
             </div>
-            <a href="https://zalo.me/0984877846" class="nav-zalo">Liên hệ: 0984877846</a>
+            
+            <div class="amenities-filter">
+                <label><input type="checkbox" class="amenity-check" value="Máy lạnh"> Máy lạnh</label>
+                <label><input type="checkbox" class="amenity-check" value="Nội thất"> Nội thất</label>
+                <label><input type="checkbox" class="amenity-check" value="Thú cưng"> Thú cưng</label>
+                <label><input type="checkbox" class="amenity-check" value="Máy giặt"> Máy giặt</label>
+            </div>
         </div>
-    </nav>
+
+        <a href="https://zalo.me/0984877846" class="nav-zalo">Hotline: 0984877846</a>
+    </div>
+</nav>
 
     <div class="main-layout">
         <div class="left-panel">
