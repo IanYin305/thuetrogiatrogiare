@@ -1,69 +1,66 @@
+// 1. DANH SÁCH DỮ LIỆU PHÒNG
 const rooms = [
     {
         id: 1,
-        name: "Căn hộ Studio view Landmark 81",
-        district: "Bình Thạnh",
-        price: 5500000,
-        electricity: "3.500đ/kwh",
-        water: "100.000đ/người",
-        parking: "Miễn phí",
-        tags: ["Sẵn nội thất", "Ban công", "Giờ tự do"],
-        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
-        map: "https://goo.gl/maps/example1"
-    },
-    {
-        id: 2,
-        name: "Phòng trọ Full nội thất gần ĐH Tôn Đức Thắng",
-        district: "Quận 7",
-        price: 3200000,
-        electricity: "4.000đ/kwh",
-        water: "15.000đ/khối",
-        parking: "100.000đ/xe",
-        tags: ["Sẵn nội thất", "Máy giặt chung"],
-        image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800",
-        map: "https://goo.gl/maps/example2"
+        name: "Phòng trọ Full nội thất Quận 1",
+        district: "Quận 1",
+        price: 4500000,
+        lat: 10.7769, // Cách lấy: Chuột phải vào bản đồ Google Maps chọn số đầu tiên
+        lng: 106.7009, // Số thứ hai
+        tags: ["Nội thất", "Free xe"],
+        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500"
     }
-    // Bạn có thể thêm các phòng khác tương tự ở đây
 ];
 
+// 2. KHỞI TẠO BẢN ĐỒ
+const map = L.map('map-container').setView([10.7769, 106.7009], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+const markerGroup = L.layerGroup().addTo(map);
+
+// 3. HÀM HIỂN THỊ
 function displayRooms(data) {
     const list = document.getElementById("room-list");
     list.innerHTML = "";
+    markerGroup.clearLayers();
 
     data.forEach(room => {
-        const formattedPrice = room.price.toLocaleString('vi-VN');
-        
-        // Tạo chuỗi HTML cho các Tag tiện ích
-        const tagsHTML = room.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
-
-        const card = `
-            <div class="room-card">
-                <div class="img-wrapper" onclick="window.open('${room.map}', '_blank')">
-                    <img src="${room.image}" alt="${room.name}" class="room-img">
-                    <div class="parking-badge">${room.parking === 'Miễn phí' ? '🚲 Free xe' : '🚲 Có chỗ để xe'}</div>
-                </div>
-                <div class="room-info">
-                    <div class="tags-container">${tagsHTML}</div>
-                    <h3 onclick="window.open('${room.map}', '_blank')">${room.name}</h3>
-                    <p class="room-district">📍 ${room.district}</p>
-                    
-                    <div class="fees">
-                        <span>⚡ ${room.electricity}</span>
-                        <span>💧 ${room.water}</span>
-                    </div>
-
-                    <div class="card-footer">
-                        <div class="room-price">${formattedPrice}₫<span class="price-label">/tháng</span></div>
-                        <a href="https://zalo.me/0984877846" target="_blank" class="btn-zalo">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" width="20"> Nhắn Zalo
-                        </a>
-                    </div>
-                </div>
+        // Hiện danh sách bên trái
+        list.innerHTML += `
+            <div class="room-card" onclick="map.flyTo([${room.lat}, ${room.lng}], 16)">
+                <div class="img-wrapper"><img src="${room.image}"></div>
+                <div>${room.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+                <h3 style="font-size: 16px; margin: 5px 0;">${room.name}</h3>
+                <div class="room-price">${room.price.toLocaleString()}đ / tháng</div>
+                <a href="https://zalo.me/0984877846" style="color:#0068FF; font-size:14px; text-decoration:none; font-weight:700;">Nhắn Zalo</a>
             </div>
         `;
-        list.innerHTML += card;
+
+        // Hiện chấm giá tiền lên bản đồ
+        const priceTag = (room.price / 1000000).toFixed(1) + "tr";
+        const icon = L.divIcon({
+            className: 'price-marker-icon',
+            html: `<div class="price-marker">${priceTag}</div>`
+        });
+
+        L.marker([room.lat, room.lng], {icon: icon})
+            .addTo(markerGroup)
+            .bindPopup(`<b>${room.name}</b><br>${room.price.toLocaleString()}đ`);
     });
 }
 
-// Giữ nguyên hàm filterRooms cũ của bạn
+// 4. HÀM LỌC (FILTER)
+function filterRooms() {
+    const d = document.getElementById("filter-district").value;
+    const p = document.getElementById("filter-price").value;
+
+    const filtered = rooms.filter(r => {
+        const matchD = d === "all" || r.district === d;
+        let matchP = true;
+        if(p === "duoi3") matchP = r.price < 3000000;
+        if(p === "3den5") matchP = r.price >= 3000000 && r.price <= 5000000;
+        return matchD && matchP;
+    });
+    displayRooms(filtered);
+}
+
 displayRooms(rooms);
