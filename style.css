@@ -1,246 +1,81 @@
-/* --- CÀI ĐẶT CHUNG --- */
+/* --- BIẾN SỐ MÀU SẮC CUTE & SANG --- */
 :root {
-    --primary-brand: #FF385C; /* Màu đỏ đặc trưng của Airbnb */
-    --text-dark: #222222;
-    --text-light: #717171;
-    --bg-light: #FFFFFF;
-    --border-color: #DDDDDD;
+    --primary: #FF80AB;    /* Hồng Pastel chủ đạo */
+    --secondary: #00D1FF;  /* Xanh trời nhấn */
+    --bg: #FFF9FA;         /* Nền trắng hồng cực nhẹ */
+    --text: #484848;       /* Xám đậm Airbnb */
+    --shadow: 0 6px 16px rgba(0,0,0,0.08);
 }
 
 body {
-    font-family: 'Nunito', sans-serif; /* Font chữ tròn trịa, hiện đại */
-    background-color: var(--bg-light);
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--bg);
     margin: 0;
-    color: var(--text-dark);
-    line-height: 1.4;
+    color: var(--text);
+    overflow: hidden; /* Cố định màn hình không cho cuộn cả trang */
 }
 
-/* --- NAVBAR --- */
-.navbar { background: white; border-bottom: 1px solid #eee; padding: 15px 0; position: sticky; top: 0; z-index: 100; }
-.nav-container { max-width: 1280px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
-.brand-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; font-size: 1.2rem; color: var(--primary-brand); font-weight: 800; }
-.nav-links { display: flex; gap: 30px; }
-.nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 1rem; padding: 10px; border-radius: 20px; }
-.nav-links a:hover { background-color: #f7f7f7; }
-.user-actions { font-weight: 600; cursor: pointer; padding: 8px 15px; border: 1px solid var(--border-color); border-radius: 21px; transition: 0.2s; }
-.user-actions:hover { box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+/* --- NAVBAR GỌN GÀNG (FIX LỖI TRONG ẢNH) --- */
+.navbar {
+    height: 80px;
+    background: white;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    box-shadow: 0 1px 12px rgba(0,0,0,0.05);
+    z-index: 1000;
+    position: relative;
+}
 
-.main-container { max-width: 1280px; margin: auto; padding: 20px 24px; }
+.nav-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 180px 1fr 200px; /* Chia 3 phần rõ ràng */
+    align-items: center;
+}
+
+.brand-logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 
 /* --- THANH TÌM KIẾM DẠNG VIÊN THUỐC (AIRBNB STYLE) --- */
-.search-bar-container { display: flex; justify-content: center; margin-top: 20px; }
-.search-bar { 
-    display: flex; 
-    align-items: center; 
-    background: white; 
-    border: 1px solid var(--border-color); 
-    border-radius: 40px; /* Bo tròn mạnh */
-    padding: 8px; 
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    width: fit-content;
-}
-.search-item { padding: 10px 20px; display: flex; flex-direction: column; }
-.search-item label { font-size: 0.8rem; font-weight: 800; margin-bottom: 5px; }
-.search-item select { 
-    border: none; 
-    background: transparent; 
-    font-size: 1rem; 
-    color: var(--text-light); 
-    outline: none; 
-    cursor: pointer;
-    -webkit-appearance: none; /* Ẩn mũi tên mặc định của select */
-}
-.divider { width: 1px; height: 30px; background-color: var(--border-color); }
-.btn-search-round { 
-    background: var(--primary-brand); 
-    color: white; 
-    border: none; 
-    border-radius: 30px; 
-    padding: 12px 20px; 
-    display: flex; align-items: center; gap: 10px;
-    font-size: 1rem; font-weight: 700; cursor: pointer; 
-    transition: 0.2s; margin-left: 10px;
-}
-.btn-search-round:hover { background: #E31C5B; }
-
-/* --- THẺ PHÒNG (CARD DESIGN - QUAN TRỌNG) --- */
-.room-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 40px 24px; margin-top: 30px; }
-.room-card { cursor: pointer; }
-.img-wrapper { 
-    height: 260px; /* Ảnh cao hơn */
-    border-radius: 12px; /* Bo góc ảnh */
-    overflow: hidden; 
-    position: relative; 
-    margin-bottom: 12px;
-    background-color: #eee; /* Màu nền khi ảnh chưa load */
-}
-.room-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-.room-card:hover .room-img { transform: scale(1.05); } /* Zoom nhẹ khi di chuột */
-
-.room-info h3 { margin: 0 0 4px; font-size: 1rem; font-weight: 800; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.room-district { color: var(--text-light); margin: 0 0 8px; font-size: 0.95rem; }
-.room-price { color: var(--text-dark); font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; }
-.price-label { font-weight: 400; font-size: 0.9rem; color: var(--text-light); margin-left: 5px;}
-
-/* Ẩn trên điện thoại */
-@media (max-width: 768px) {
-    .nav-links, .user-actions { display: none; }
-    .search-bar { flex-direction: column; border-radius: 20px; width: 100%; }
-    .divider { display: none; }
-    .btn-search-round { width: 100%; justify-content: center; margin: 10px 0 0 0; }
-    .search-item { width: 100%; border-bottom: 1px solid #eee; }
-}
-/* Container chứa các tag (Nội thất, máy lạnh...) */
-.tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: 10px;
-}
-
-.tag {
-    background: #f0f0f0;
-    color: #555;
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-weight: 600;
-}
-
-/* Hiển thị chi phí điện nước */
-.fees {
-    display: flex;
-    gap: 15px;
-    font-size: 12px;
-    color: #717171;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-/* Badge hiển thị gửi xe trên ảnh */
-.parking-badge {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: bold;
-}
-
-/* Căn chỉnh giá tiền và nút Zalo nằm ngang hàng */
-.card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.btn-zalo {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: #0068FF; /* Màu xanh Zalo */
-    color: white;
-    text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.btn-zalo:hover {
-    background: #0056d2;
-    transform: scale(1.05);
-}
-:root { --airbnb: #FF385C; --text: #222; }
-body { font-family: 'Nunito', sans-serif; margin: 0; overflow: hidden; }
-
-/* Navbar */
-.navbar { height: 80px; border-bottom: 1px solid #ebebe b; display: flex; align-items: center; background: white; }
-.nav-container { width: 100%; display: flex; justify-content: space-between; padding: 0 24px; align-items: center; }
-.brand-logo { color: var(--airbnb); font-weight: 800; text-decoration: none; font-size: 20px; }
-
-/* Thanh tìm kiếm gọn gàng */
-.search-compact { border: 1px solid #DDD; padding: 8px 15px; border-radius: 40px; display: flex; gap: 10px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-.search-compact select { border: none; outline: none; font-weight: 600; cursor: pointer; }
-.line { width: 1px; background: #DDD; }
-
-/* Bố cục 2 cột */
-.main-layout { display: flex; height: calc(100vh - 80px); }
-.left-panel { flex: 1.2; overflow-y: auto; padding: 20px; background: white; }
-#map-container { flex: 1.5; background: #e5e3df; border-left: 1px solid #DDD; }
-
-/* Thẻ phòng trọ */
-.room-card { margin-bottom: 25px; cursor: pointer; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
-.img-wrapper { height: 200px; border-radius: 12px; overflow: hidden; margin-bottom: 10px; }
-.img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-.room-price { font-weight: 800; font-size: 16px; margin-top: 5px; }
-.tag { background: #F7F7F7; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 5px; color: #717171; }
-
-/* Chấm giá tiền trên bản đồ */
-.price-marker {
-    background: white; padding: 4px 8px; border-radius: 20px; font-weight: 800;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3); border: 1px solid #DDD; font-size: 12px;
-}
-.amenities-filter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 15px;
-    padding: 10px;
-}
-
-.amenities-filter label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #484848;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.amenities-filter input[type="checkbox"] {
-    accent-color: #FF385C; /* Màu đỏ Airbnb */
-    width: 18px;
-    height: 18px;
-}
-
-/* Tăng chiều cao navbar để chứa 2 hàng */
-.navbar {
-    height: auto;
-    min-height: 100px;
-    padding: 10px 0;
-    background: white;
-    border-bottom: 1px solid #ddd;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
 .search-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
-/* Thanh tìm kiếm chính */
 .search-compact {
-    border: 1px solid #DDD;
-    padding: 5px 20px;
+    border: 1px solid #EBEBEB;
+    background: white;
+    padding: 6px 12px;
     border-radius: 40px;
     display: flex;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow);
+    transition: 0.3s;
 }
 
-/* Làm đẹp hàng Checkbox */
+.search-compact:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+
+.search-compact select {
+    border: none;
+    padding: 8px 15px;
+    font-weight: 700;
+    color: var(--text);
+    outline: none;
+    cursor: pointer;
+    background: transparent;
+}
+
+/* Checkbox Filter nằm ngay dưới thanh search */
 .amenities-filter {
     display: flex;
     gap: 15px;
@@ -254,111 +89,90 @@ body { font-family: 'Nunito', sans-serif; margin: 0; overflow: hidden; }
     align-items: center;
     gap: 4px;
     cursor: pointer;
-    white-space: nowrap; /* Tránh nhảy dòng chữ */
 }
 
-/* Nút Zalo Hotline góc phải */
+.amenity-check { accent-color: var(--primary); }
+
+/* --- BỐ CỤC CHÍNH --- */
+.main-layout {
+    display: flex;
+    height: calc(100vh - 80px);
+}
+
+.left-panel {
+    width: 420px; /* Cố định chiều rộng danh sách */
+    overflow-y: auto;
+    padding: 20px;
+    background: white;
+}
+
+#map-container {
+    flex: 1; /* Bản đồ chiếm hết phần còn lại */
+    height: 100%;
+}
+
+/* --- THẺ PHÒNG CUTE --- */
+.room-card {
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid #F0F0F0;
+    background: white;
+}
+
+.room-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(255, 128, 171, 0.15);
+}
+
+.img-wrapper {
+    height: 220px;
+    position: relative;
+}
+
+.img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+.room-info { padding: 15px; }
+
+.room-price {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 8px 0;
+}
+
+.tag {
+    background: #FFF0F5;
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+/* --- NÚT SURPRISE & ZALO --- */
+.btn-surprise {
+    background: linear-gradient(135deg, #FF80AB, #FF4081);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 40px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 64, 129, 0.3);
+}
+
 .nav-zalo {
     color: #0068FF;
     text-decoration: none;
     font-weight: 800;
-    font-size: 14px;
-    border: 1px solid #0068FF;
-    padding: 8px 15px;
-    border-radius: 20px;
-}
-.nav-zalo:hover {
-    background: #0068FF;
-    color: white;
-}
-/* 1. Đổi tông màu sang Pastel */
-:root {
-    --primary-brand: #FF80AB; /* Hồng cute thay cho đỏ Airbnb */
-    --bg-cute: #FFF9FA;
+    border: 2px solid #0068FF;
+    padding: 8px 20px;
+    border-radius: 40px;
+    text-align: center;
+    transition: 0.3s;
 }
 
-body {
-    background-color: var(--bg-cute);
-}
-
-/* 2. Bo tròn cực mạnh cho các thẻ (Soft corners) */
-.room-card, .search-compact, .btn-zalo, .price-marker {
-    border-radius: 25px !important; /* Bo tròn kiểu kẹo ngọt */
-    border: 2px solid #FFECF0;
-}
-
-/* 3. Hiệu ứng con trỏ chuột hình ngôi nhà cute */
-body {
-    cursor: url('https://cdn-icons-png.flaticon.com/32/1000/1000997.png'), auto;
-}
-
-/* 4. Thêm hiệu ứng bay bổng cho nút Zalo */
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-.nav-zalo {
-    animation: float 3s ease-in-out infinite;
-    background: #FF80AB;
-    border: none;
-    color: white;
-}
-
-/* 5. Hiệu ứng khi rê chuột vào phòng (Zoom & Shadow mềm) */
-.room-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 30px rgba(255, 128, 171, 0.2);
-}
-/* Container cho nút Surprise */
-.surprise-container {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-/* Nút bấm phong cách kẹo ngọt */
-.btn-surprise {
-    background-color: #FF80AB; /* Hồng pastel */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 128, 171, 0.4);
-    transition: all 0.3s ease;
-    animation: jelly 2s infinite; /* Hiệu ứng rung rinh */
-}
-
-.btn-surprise:hover {
-    background-color: #f06292;
-    transform: scale(1.1);
-}
-
-/* Hiệu ứng rung rinh kiểu thạch (Jelly) */
-@keyframes jelly {
-    0%, 100% { transform: scale(1, 1); }
-    25% { transform: scale(0.9, 1.1); }
-    50% { transform: scale(1.1, 0.9); }
-    75% { transform: scale(0.95, 1.05); }
-}
-/* Hiệu ứng trượt lên và mờ dần khi xuất hiện */
-@keyframes slideUpFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Áp dụng hiệu ứng cho từng thẻ phòng */
-.room-card.show {
-    animation: slideUpFadeIn 0.5s ease-out forwards;
-}
+.nav-zalo:hover { background: #0068FF; color: white; }
