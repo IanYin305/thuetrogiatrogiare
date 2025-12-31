@@ -3,64 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tìm Trọ Nhanh - Uy tín & Tiện lợi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title>Tìm Trọ Nhanh - Phong cách Airbnb</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="brand-logo">🏠 VietHome Find</a>
-            <ul class="nav-links">
-                <li><a href="#">Trang chủ</a></li>
-                <li><a href="#list-section" class="btn-highlight">Tìm phòng ngay</a></li>
-            </ul>
+            <a href="#" class="brand-logo">
+                <svg width="30" height="32" fill="currentColor" style="display:block" viewBox="0 0 30 32" xmlns="http://www.w3.org/2000/svg"><path d="M28.57 7.19c-.26-1.6-1.64-2.72-2.92-3.26a9.4 9.4 0 0 0-1.3-.44c-2.1-.6-4.52-.9-7.27-1A30.72 30.72 0 0 0 9.38 5.5c-1.3.54-2.66 1.66-2.92 3.26-.33 2.03.54 4.38 2.37 7.75 1.84 3.37 4.2 7.1 6.55 11.25a2.3 2.3 0 0 0 4.08 0c2.35-4.15 4.71-7.88 6.55-11.25 1.83-3.37 2.7-5.72 2.37-7.75zM15.42 25.7a1.13 1.13 0 0 1-1.92 0c-2.1-3.72-4.3-7.18-6.03-10.37-1.72-3.17-2.45-5.17-2.16-6.93.2-1.25 1.26-2.12 2.23-2.52.72-.3 1.51-.47 2.36-.57C12 5.17 13.95 5.4 15.88 6c.86.1 1.64.27 2.36.57.98.4 2.04 1.27 2.23 2.52.3 1.76-.44 3.76-2.16 6.93-1.73 3.19-3.93 6.65-6.03 10.37zm-7.1-13.1a4.3 4.3 0 1 1 8.6 0 4.3 4.3 0 0 1-8.6 0z"></path></svg>
+                airbnb-clone
+            </a>
+            <div class="nav-links">
+                <a href="#" style="font-weight: bold;">Nơi ở</a>
+                <a href="#">Trải nghiệm</a>
+                <a href="#">Trực tuyến</a>
+            </div>
+             <div class="user-actions">
+                <span>Đăng nhập</span>
+             </div>
         </div>
     </nav>
 
-    <header class="hero-section">
-        <div class="hero-content">
-            <h1>Tìm Không Gian Sống Lý Tưởng Của Bạn</h1>
-            <p>Hàng trăm phòng trọ, căn hộ dịch vụ được xác thực đang chờ bạn khám phá.</p>
-        </div>
-    </header>
-
-    <div class="container" id="list-section">
-        <div class="filter-card">
-            <h2>🔍 Lọc theo nhu cầu</h2>
-            <div class="filter-inputs">
-                <div class="input-group">
-                    <label for="filter-district">Khu vực</label>
+    <div class="main-container">
+        <div class="search-bar-container">
+            <div class="search-bar">
+                <div class="search-item">
+                    <label>Khu vực</label>
                     <select id="filter-district">
-                        <option value="all">Tất cả Quận</option>
-                        <option value="Quận 1">Quận 1</option>
-                        <option value="Quận 3">Quận 3</option>
-                        <option value="Quận 7">Quận 7</option>
-                        <option value="Bình Thạnh">Bình Thạnh</option>
+                        <option value="all">Bạn muốn ở đâu?</option>
+                        <option value="Quận 1">Quận 1, TP.HCM</option>
+                        <option value="Quận 3">Quận 3, TP.HCM</option>
+                        <option value="Quận 7">Quận 7, TP.HCM</option>
+                        <option value="Bình Thạnh">Bình Thạnh, TP.HCM</option>
                     </select>
                 </div>
-
-                <div class="input-group">
-                    <label for="filter-price">Mức giá</label>
+                <div class="divider"></div>
+                <div class="search-item">
+                    <label>Mức giá</label>
                     <select id="filter-price">
-                        <option value="all">Tất cả mức giá</option>
+                        <option value="all">Thêm ngân sách</option>
                         <option value="duoi3">Dưới 3 triệu</option>
                         <option value="3den5">Từ 3 - 5 triệu</option>
                         <option value="tren5">Trên 5 triệu</option>
                     </select>
                 </div>
+                <button onclick="filterRooms()" class="btn-search-round">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display:block;fill:none;height:16px;width:16px;stroke:currentColor;stroke-width:4;overflow:visible"><g fill="none"><path d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"></path></g></svg>
+                    <span>Tìm kiếm</span>
+                </button>
             </div>
-            <button onclick="filterRooms()" class="btn-search">Áp dụng bộ lọc</button>
         </div>
 
+        <h2 style="margin-top: 40px; font-weight: 800;">Khám phá nơi ở tuyệt vời</h2>
+        
         <div id="room-list" class="room-grid">
             </div>
     </div>
-
-    <footer>
-        <p>© 2023 VietHome Find. Website hỗ trợ tìm kiếm phòng trọ miễn phí.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
