@@ -98,3 +98,22 @@ document.querySelectorAll('.amenity-check').forEach(check => {
 document.querySelectorAll('.amenity-check').forEach(check => {
     check.addEventListener('change', filterRooms);
 });
+function surpriseMe() {
+    // 1. Kiểm tra nếu có danh sách phòng
+    if (rooms.length === 0) return;
+
+    // 2. Chọn ngẫu nhiên một vị trí trong mảng
+    const randomIndex = Math.floor(Math.random() * rooms.length);
+    const luckyRoom = rooms[randomIndex];
+
+    // 3. Hiệu ứng bản đồ bay đến phòng đó
+    map.flyTo([luckyRoom.lat, luckyRoom.lng], 16, {
+        animate: true,
+        duration: 2 // Bay trong 2 giây cho mượt
+    });
+
+    // 4. Tự động mở Popup của phòng đó trên bản đồ (tùy chọn)
+    // Để làm điều này, bạn cần lưu trữ marker vào một mảng khi tạo marker ở hàm displayRooms
+    
+    alert("VietHome đã chọn cho bạn: " + luckyRoom.name + " ✨. Xem ngay nhé!");
+}
